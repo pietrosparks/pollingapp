@@ -1,5 +1,6 @@
 const functions = require('../utils');
 const _ = require('lodash');
+const JWT = require('jsonwebtoken');
 
 
 var Users = require('../models/user')

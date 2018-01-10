@@ -60,13 +60,13 @@
                 <h2 class="title is-size-5 is-primary-color">Occasional Poller</h2>
                 <h3 class="title is-size-6">
                   <span class="is-primary-color">68 </span>Polls created</h3>
-                  <a class="button is-primary" @click="createPoll()">Create a new poll</a>
+                <a class="button is-primary" @click="createPoll()">Create a new poll</a>
               </div>
               <br>
             </div>
           </div>
 
-        
+
 
           <div class="column">
             <div class="columns">
@@ -139,59 +139,59 @@
         </div>
       </section>
     </div>
-   
+
 
     <div class="modal" :class="{'is-active': isModalOpen }">
       <div class="modal-background"></div>
       <div class="modal-content">
-            <div class="box">
-                    <article class="media">
-                      <div class="media-left">
-                        <figure class="image is-64x64">
-                          <img src="../assets/avataaars.png" alt="Image">
-                        </figure>
-                      </div>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong class="username">New Poll</strong>
-                            <br>
-                            <div class="field">
-      
-                              <div class="control  ">
-                                <input class="input is-success" type="text" placeholder="Name of Poll " value="">
-                              </div>
-                              <div class="control  ">
-      
-                                <div class="field">
-      
-                                  <div class="control">
-                                    <textarea class="textarea" placeholder="Description"></textarea>
-      
-                                  </div>
-                                </div>
-      
-                              </div>
-      
-                            </div>
-                            <div class="control has-icons-right ">
-                              <input class="input is-success" type="text" placeholder="Poll Options" value="">
-                              <span class="icon is-small is-right">
-                                <icon name="plus-circle"></icon>
-                              </span>
-      
-                            </div>
-                            <div class="control ">
-                              <a class="button is-primary" href=""> Create</a>
-                            </div>
-      
-      
-                          </p>
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="../assets/avataaars.png" alt="Image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong class="username">New Poll</strong>
+                  <br>
+                  <div class="field">
+
+                    <div class="control  ">
+                      <input class="input is-success" type="text" placeholder="Name of Poll " value="">
+                    </div>
+                    <div class="control  ">
+
+                      <div class="field">
+
+                        <div class="control">
+                          <textarea class="textarea" placeholder="Description"></textarea>
+
                         </div>
-      
                       </div>
-                    </article>
+
+                    </div>
+
                   </div>
+                  <div class="control has-icons-right ">
+                    <input class="input is-success" type="text" placeholder="Poll Options" value="">
+                    <span class="icon is-small is-right">
+                      <icon name="plus-circle"></icon>
+                    </span>
+
+                  </div>
+                  <div class="control ">
+                    <a class="button is-primary" href=""> Create</a>
+                  </div>
+
+
+                </p>
+              </div>
+
+            </div>
+          </article>
+        </div>
       </div>
       <button class="modal-close is-large" @click="createPoll()" aria-label="close"></button>
     </div>
@@ -205,11 +205,11 @@
       return {
         isModalOpen: false
       }
-    }, 
-    methods:{
-        createPoll(){
-            this.isModalOpen = !this.isModalOpen
-        }
+    },
+    methods: {
+      createPoll() {
+        this.isModalOpen = !this.isModalOpen
+      }
     }
   }
 

@@ -83,7 +83,7 @@
                                   <input class="input is-success" type="password" placeholder="Password" v-model="password">
     
                                 </div>
-                                <a  class="button is-primary is-fullwidth" >
+                                <a  class="button is-primary is-fullwidth" @click="logIn()">
                                   <i class="fa fa-sign-in"></i>
                                   </span>
                                   <span>Login</span>
@@ -194,6 +194,7 @@
 
 <script>
      import axios from 'axios'
+     
 
   export default {
     name: 'Login',
@@ -217,6 +218,7 @@
           this.signup = !this.signup
       },
       signUp(){
+        console.log("hey")
         axios.post('http://localhost:4000/api/auth/signup',{
             email: this.email,
             password: this.password
@@ -226,12 +228,16 @@
             throw(e);
         })
       },
-      login(){
+      logIn(){
           axios.post('http://localhost:4000/api/auth/login',{
               email: this.email, 
               password: this.password
           }).then(response=>{
-            console.log(response, "this is a login")
+            
+            console.log(response)
+            localStorage.setItem('userCredentials', response.data.user);
+            localStorage.setItem('userToken', response.data.token)
+
           }).catch(e=>{
               throw(e)
           })
