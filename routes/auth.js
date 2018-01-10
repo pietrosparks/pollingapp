@@ -6,6 +6,8 @@ module.exports = (api, Users, functions, _, Poller) => {
 
     var userObject = {
       profile: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         userID: functions.randomID()
       },

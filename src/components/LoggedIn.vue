@@ -203,7 +203,6 @@
     name: 'Login',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
         isModalOpen: false
       }
     }, 
