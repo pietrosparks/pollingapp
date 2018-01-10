@@ -13,7 +13,7 @@ export default {
 
 <style>
 
-@import '../node_modules/bulma-extensions/bulma-divider/bulma-divider.min.css';
+
 #app {
   
   -webkit-font-smoothing: antialiased;

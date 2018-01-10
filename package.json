@@ -9,7 +9,7 @@
     "start": "node ./bin/www",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "node": "pm2 start 'npm' --name 'logger' -- start --watch"
+    "node": "pm2 start 'npm' --name 'pollingapp' -- start --watch"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -18,9 +18,11 @@
     "buefy": "^0.6.2",
     "bulma": "^0.6.1",
     "bulma-extensions": "^0.5.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "mongoose": "^5.0.0-rc1",
@@ -28,11 +30,14 @@
     "node-bcrypt": "0.0.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.4.0",
     "random-id": "0.0.2",
     "vue": "^2.5.2",
     "vue-avatar": "^2.1.1",
     "vue-awesome": "^2.3.4",
     "vue-axios": "^2.0.2",
+    "vue-localstorage": "^0.6.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

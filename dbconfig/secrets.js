@@ -10,5 +10,5 @@ if(process.env.NODE_ENV !== 'production'){
 module.exports = {
     DATABASE: MONGO_DB,
     JWT_SECRET: process.env.JWT_SECRET,
-  
+
 };
