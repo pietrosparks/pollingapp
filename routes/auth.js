@@ -16,19 +16,20 @@ module.exports = (api, Users, functions, _, Poller ) => {
 
     }
 
+   
     Users.findOne({
       'profile.email': userObject.profile.email
     }, (err, user) => {
 
       if (_.isNull(user)) {
-
+          
        token = functions.encryptPayload(userObject.profile)
       
 
         Users.create(userObject, (err, user) => {
-          
+          console.log(err, user,"kd")
           if (err) {
-            console.log('There was a problem creating Users')
+            console.log('There was a problem creating Users');
           }
           Poller.create(userObject.profile, (err, response) => {
             if (err) {
@@ -58,6 +59,7 @@ module.exports = (api, Users, functions, _, Poller ) => {
       user.token = functions.encryptPayload(user.profile)
 
       if (!_.isNull(user) && functions.decrypter(req.body.password, user.password)) {
+
         res.status(200).json({
           user: user.profile, 
           token: user.token,
@@ -74,9 +76,12 @@ module.exports = (api, Users, functions, _, Poller ) => {
 
 
   //Protected route 
-  api.post('/auth/secret', functions.requestAuthorization, (req, res)=>{
-    res.json({
-      message: "This is a super secret route "
-    })
-  })
+  // api.post('/auth/secret', functions.requestAuthorization, (req, res)=>{
+  //   res.json({
+  //     message: "This is a super secret route "
+  //   })
+  // })
+
+
+
 }
