@@ -1,12 +1,12 @@
 const randomID = require('random-id');
 const JWT = require('jsonwebtoken');
 const secrets = require('./dbconfig/secrets');
-var bcrypt = require('bcrypt-nodejs');
-var salt = bcrypt.genSaltSync(10);
+const bcrypt = require('bcrypt-nodejs');
+const salt = bcrypt.genSaltSync(10);
 
 
 
-var encryptPayload = (payload) => {
+const encryptPayload = (payload) => {
 
   return JWT.sign({
     data: payload,
@@ -16,7 +16,7 @@ var encryptPayload = (payload) => {
 
 }
 
-var requestAuthorization = (req, res, next) => {
+const requestAuthorization = (req, res, next) => {
 
   let bearerToken;
   let bearerHeader = req.headers.authorization;
@@ -39,14 +39,14 @@ var requestAuthorization = (req, res, next) => {
   } else return res.sendStatus(403)
 }
 
-var passwordHash = (password) => {
+const passwordHash = (password) => {
 
   let salt = bcrypt.genSaltSync(10);
   let encrypted = bcrypt.hashSync(password, salt);
   return encrypted;
 }
 
-var passwordDecrypt = (password, hashedPassword) => {
+const passwordDecrypt = (password, hashedPassword) => {
   return bcrypt.compareSync(password, hashedPassword);
 }
 

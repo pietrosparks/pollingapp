@@ -12,7 +12,7 @@
       </button>
       <div class="logo">
 
-          <router-link :to="{ name: 'index' }">
+          <router-link :to="{ name: 'Index' }">
                 <img :src="require('@/assets/avataaars.png')" />
                 <p></p>
             </router-link>
@@ -70,7 +70,7 @@
             <h4 class="text-center">OR</h4>
             <div class="row">
               <div class="col-md-6">
-                <button class="btn btn-info btn-block">Twitter Login</button>
+                <button class="btn btn-info btn-block" @click="twitterLogin()">Twitter Login</button>
               </div>
               <div class="col-md-6">
                  <button class="btn btn-primary btn-block">Facebook Login</button>
@@ -88,7 +88,7 @@
             <h4 class="text-center">OR</h4>
             <div class="row">
               <div class="col-md-6">
-                <button class="btn btn-info btn-block">Twitter Signup</button>
+                <button class="btn btn-info btn-block" @click="twitterLogin()">Twitter Signup</button>
               </div>
               <div class="col-md-6">
                  <button class="btn btn-primary btn-block">Facebook Signup</button>
@@ -145,6 +145,14 @@
           }).catch(e=>{
               throw(e)
           })
+      },
+      twitterLogin(){
+        
+        axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(response=>{
+          axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(user=>{
+            console.log(user, "hey")
+          })
+        })
       }
 
     }

@@ -150,7 +150,7 @@
                                     <div class="field">
                                       <div class="control">
                                         <div class="columns">
-                                          <div class="column ">
+                                          <div class="column " @click="twitterLogin()">
                                             <a href="" class="button is-default is-fullwidth">Twitter</a>
                                           </div>
                                           <div class="column">
@@ -241,6 +241,13 @@
           }).catch(e=>{
               throw(e)
           })
+      },
+      twitterLogin(){
+        axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(response=>{
+          axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(user=>{
+            console.log(user, "hey")
+          })
+        })
       }
 
     }

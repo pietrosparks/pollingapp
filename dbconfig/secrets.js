@@ -13,6 +13,11 @@ else{
 module.exports = {
     DATABASE: MONGO_DB,
     JWT_SECRET: process.env.JWT_SECRET,
+    twitter:{
+        consumerKey: process.env.CONSUMERKEY,
+        consumerSecret: process.env.CONSUMERSECRET,
+        callbackUrl: process.env.CALLBACKURL
+    }
 
 };
 //map Global promise - get rid or warning

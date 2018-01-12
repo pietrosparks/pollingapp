@@ -1,8 +1,9 @@
 const functions = require('../utils');
 const _ = require('lodash');
 const JWT = require('jsonwebtoken');
-const twitter = require('node-twitter-api');
+const Twitter = require('node-twitter-api');
 const bluebird = require('bluebird');
+const secret= require ('../dbconfig/secrets');
 
 
 var Users = require('../models/user')
@@ -13,7 +14,7 @@ module.exports = (express)=>{
 
     const api = express.Router();
     
-    require('./auth')(api, Users, functions, _, Poller, twitter, Promise);
+    require('./auth')(api, Users, functions, _, Poller, Twitter, bluebird, secret);
 
     return api
 }
