@@ -1,6 +1,58 @@
 <template>
 
 <span>
+  <section class="indexio">
+  <nav class="navbar navbar-default navbar-static-top" >
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <div class="logo">
+
+          <router-link :to="{ name: 'index' }">
+                <img :src="require('@/assets/avataaars.png')" />
+                <p></p>
+            </router-link>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <!-- <div class="col-md-7 nav-input">
+            <input type="text" placeholder="Search">
+        </div> -->
+        
+          <input type="text" class="form-control" placeholder="Search In Pooling">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right ">
+        <li><a href="#" class="btn btn-default btne">Sign Up</a></li>
+      <li><a href="#" class="btne1">Login</a></li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 div.col-md-offset-3">
+          <h1 style="margin-top:-2%;">Polling.io</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis officia, dolorum labore omnis perspiciatis corrupti enim iste nihil veritatis hic! Omnis dolorem, similique iste repudiandae nesciunt. Suscipit dignissimos delectus, quos.</p>
+          <button class="btn btn-primary bter">Get Started</button>
+        </div>
+        
+          <!-- <img :src="require('@/assets/img/background-home-influencer-right.png')" alt="Zeedas" class="img-responsive login-signup-logo" style="filter: hue-rotate(197deg);" /> -->
+          <div class="back">
+            
+          </div>
+        
+      </div>
+    </div>
+  </section>
   <section>
     <div class="container">
       <div class="row">
@@ -102,7 +154,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Poppins');
+
 
 img.igm-responsive.login-signup-logo {
     width: 100%;
@@ -110,4 +162,74 @@ img.igm-responsive.login-signup-logo {
 .is-primary-color {
     color: #6FCF97 !important
   }
+
+section.indexio {
+    color: rgb(255, 255, 255);
+    height: 550px;
+    /*padding-top: 12%;*/
+    margin-bottom: 9%;
+    background: linear-gradient(to top, rgb(15, 72, 101) 0%, rgb(0, 153, 230) 100%);
+}
+
+.back::before {
+    content: ' ';
+    background: url(/static/img/background-home-influencer-right.png);
+    top: -54%;
+    -webkit-filter: hue-rotate(648deg);
+    filter: hue-rotate(648deg);
+    /* filter: hue-rotate(197deg); */
+    width: 100% !important;
+    background-size: cover;
+    height: 432px !important;
+    position: absolute;
+    right: -35%;
+}
+.navbar-default {
+    background-color: #f8f8f800 !important;
+    border-color: #e7e7e700 !important;
+    margin-bottom: 12% !important;
+    box-shadow: none !important;
+}
+.navbar-right {
+    /*float: !important;*/
+    float: right !important;
+    position: absolute;
+    right: 0%;
+}
+.btne{
+    -webkit-box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+    border: none !important;
+    padding: 7px 40px;
+    border-radius: 50px !important;
+    color: #f7298d !important;
+    font-weight: 500;
+    margin-top: 9px;
+}
+.btne1{
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 900;
+}
+div#myNavbar input {
+    margin-top: 8px;
+    border-radius: 50px !important;
+    margin-left: 12%;
+    color: #fff !important;
+    background: transparent !important;
+    padding: 10px 20px;
+    font-size: 13px;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    width: 297px;
+    border: 1px solid #fff !important;
+}
+#myNavbar input [placeholder], [placeholder], *[placeholder] {
+    color: #fff !important;
+}
+button.btn.btn-primary.bter {
+    padding: 8px 55px;
+    margin-top: 9px;
+    background: #0D967E;
+}
 </style>

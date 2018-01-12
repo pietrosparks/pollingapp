@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-default header navbar-static-top" >
+<nav class="navbar navbar-default header navbar-static-top" v-if="isNotLanding">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -48,6 +48,12 @@ export default {
      
       isNotLoginPage() {
         if (this.$route.name === "login" || this.$route.name === "signup") {
+          return false;
+        }
+        return true;
+      },
+      isNotLanding() {
+        if (this.$route.name === "Index") {
           return false;
         }
         return true;

@@ -5,6 +5,8 @@
 var mongoose = require('mongoose'),
   secrets = require('./secrets'),
   databaseConnect = mongoose.connection;
+  
+mongoose.Promise = global.Promise;
 
 mongoose.connect(secrets.DATABASE, {
   useMongoClient: true
