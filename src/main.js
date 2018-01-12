@@ -6,7 +6,8 @@ import Buefy from 'buefy'
 import router from './router'
 import Avatar from 'vue-avatar'
 import 'buefy/lib/buefy.css'
-
+require('./assets/css/style.css')
+require('./assets/css/bootstrap/css/bootstrap.min.css')
 import 'vue-awesome/icons/plus-circle'
 import VueLocalStorage from 'vue-localstorage'
 import axios from 'axios'

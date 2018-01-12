@@ -1,0 +1,63 @@
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i');
+*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+/*@import url('https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400');
+*/h1,h2,h3,h4,h5,h6,p,input,textarea,select,label,span,i,div,section{
+  font-family: 'Open Sans', sans-serif !important;
+}
+button{
+  box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+  border: none !important;
+  border-radius: 50px !important;
+}
+.btne{
+	 box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+  border: none !important;
+  border-radius: 50px !important;
+}
+/*.navbar-default {
+  background-color: #fff !important;
+  border-color: #fff !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.10);
+}*/
+input.form-control:focus {
+    border: 2px solid #6FCF97 !important;
+}
+/*.navbar {
+    position: relative;
+    min-height: 50px;
+     margin-bottom: 0px !important; 
+    border: 1px solid transparent;
+}*/
+input.form-control {
+	transition: all .4s ease !important;
+    box-shadow: none !important;
+    padding-left: 20px;
+    border-radius: 50px;
+}
+.well.login input {
+    margin-bottom: 5%;
+}
+.well.login {
+    background: #fff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.12);
+    padding: 40px;
+    border: none;
+    border-radius: 1px;
+}
+div#myNavbar input {
+  margin-top: 8px;
+  border-radius: 50px !important;
+  margin-left: 12%;
+  padding: 10px 20px;
+  font-size: 13px;
+  transition: all .5s ease;
+  width: 297px;
+  border: 1px solid #ddd;
+}
+
+div#myNavbar input:focus {
+  margin-top: 8px;
+  border-radius: 50px !important;
+  width: 460px;
+ }
