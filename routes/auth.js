@@ -1,4 +1,4 @@
-module.exports = (api, Users, functions, _, Poller, ) => {
+module.exports = (api, Users, functions, _, Poller ) => {
     
   api.post('/auth/signup', (req, res) => {
 
@@ -48,6 +48,7 @@ module.exports = (api, Users, functions, _, Poller, ) => {
   })
 
   api.post('/auth/login', (req, res) => {
+
     Users.findOne({
       'profile.email': req.body.email
     }, (err, user) => {

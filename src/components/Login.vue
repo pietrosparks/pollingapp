@@ -218,7 +218,7 @@
           this.signup = !this.signup
       },
       signUp(){
-        console.log("hey")
+        
         axios.post('http://localhost:4000/api/auth/signup',{
             email: this.email,
             password: this.password
@@ -233,7 +233,7 @@
               email: this.email, 
               password: this.password
           }).then(response=>{
-            
+
             console.log(response)
             localStorage.setItem('userCredentials', response.data.user);
             localStorage.setItem('userToken', response.data.token)

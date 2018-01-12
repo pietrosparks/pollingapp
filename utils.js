@@ -68,5 +68,4 @@ module.exports = {
   // isLoggedIn: isLoggedIn,
   encryptPayload: encryptPayload,
   requestAuthorization: requestAuthorization
-
 }
