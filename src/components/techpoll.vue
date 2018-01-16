@@ -149,9 +149,7 @@
       twitterLogin(){
         
         axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(response=>{
-          window.location.assign(response.data).then(err, data=>{
-            console.log(err, data)
-          })
+          
           axios.get(response.data).then(user=>{
           })
         })
