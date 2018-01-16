@@ -244,8 +244,10 @@
       },
       twitterLogin(){
         axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(response=>{
+          console.log(response)
+          window.open(response.data, '_blank')
           axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(user=>{
-            console.log(user, "hey")
+           
           })
         })
       }

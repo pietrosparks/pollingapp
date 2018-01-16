@@ -17,7 +17,10 @@ var bodyParser = require('body-parser'),
     //for machines that use 'origin'
     'http://localhost:4000',
     //for machines that use 'host'
-    'localhost:4000'
+    'localhost:4000',
+    'https://api.twitter.com',
+    'api.twitter.com',
+    
   ]
 
 //CORS only takes requests hence the (req , next )
