@@ -3,8 +3,36 @@ const JWT = require('jsonwebtoken');
 const secrets = require('./dbconfig/secrets');
 const bcrypt = require('bcrypt-nodejs');
 const salt = bcrypt.genSaltSync(10);
+const multer = require('multer');
 
+const storage = multer.diskStorage({
 
+  destination: function (req, file, callback) {
+      callback(null, './src/assets/profileUploads/');
+  },
+  filename: function (req, file, callback) {
+      callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+      checkFileType(file, cb);
+  }
+}).single('file');
+
+function checkFileType(file, cb) {
+  const filetypes = /jpeg|jpg|png|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+      return cb(null, true);
+  } else {
+      cb('Error: Images Only!');
+  }
+}
 
 const encryptPayload = (payload) => {
 
@@ -67,5 +95,6 @@ module.exports = {
   decrypter: passwordDecrypt,
   // isLoggedIn: isLoggedIn,
   encryptPayload: encryptPayload,
-  requestAuthorization: requestAuthorization
+  requestAuthorization: requestAuthorization,
+  imageUpload: upload
 }

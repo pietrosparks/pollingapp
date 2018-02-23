@@ -7,6 +7,10 @@ var userSchema = mongoose.Schema({
       type: String,
       required: true
     }, 
+    userName:{
+      type: String, 
+      required: true
+    },
      firstName: {
       type: String,
       required: true
@@ -18,6 +22,32 @@ var userSchema = mongoose.Schema({
     userID: {
         type: String,
         required: true,
+    },
+    avatar:{
+      type:String,
+      contentType: String,
+      data:Buffer,
+      default:'/src/assets/avataaars.png'
+    }, 
+    followers:{
+      type: Array,
+      default: []
+    }, 
+    following: {
+      type: Array, 
+      default: []
+    },
+    createdPolls:{
+      type: Array,
+      default: []
+    }, 
+    answeredPolls: {
+      type: Array, 
+      default: []
+    }, 
+    level:{
+      type: String, 
+      default: '1'
     }
 
   },

@@ -1,102 +1,156 @@
 <template>
-<nav class="navbar navbar-default header navbar-static-top" v-if="isNotLanding">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <div class="logo">
+  <header class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="https://www.downgraf.com/wp-content/uploads/2017/04/Downgraf-New-Logo-Design-Black.png" alt="Logo">
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenuHeroC" class="navbar-menu">
+        <div class="navbar-end " v-if="!authenticated">
 
-          <router-link :to="{ name: 'index' }">
-                <img :src="require('@/assets/avataaars.png')" />
-                <p>TectPoll</p>
-            </router-link>
+          <span class="navbar-item has-text-centered">
+
+            <a class="button is-success is-outlined" @click="toggleLogin()">Login</a>
+          </span>
+          <span class="navbar-item has-text-centered">
+
+            <a class="button is-success is-outlined" @click="toggleLogin()">Sign Up</a>
+          </span>
+        </div>
+        <div class="navbar-end " v-else>
+          <div class="search">
+            
+          </div>
+          <div class="searchBar">
+
+            <div class="field">
+              <label class="label">Search</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input is-success" type="text" placeholder="Search" v-model="search" >
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+               
+
+              </div>
+
+            </div>
+            
+          </div>
+          <div class="searchIcon" @click="searchFunction()">
+              <img src="../assets/search.png" alt="">
+            </div>
+          <span class="navbar-item has-text-centered">
+
+            <h3 class="is-size-3">
+              Welcome
+              <span style="color:#6FCF97">{{username}}</span>
+            </h3>
+
+          </span>
+          <span class="logout-btn navbar-item">
+            <a class="button is-success is-outlined" @click="logout()">Logout</a>
+          </span>
+
+        </div>
       </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <!-- <div class="col-md-7 nav-input">
-            <input type="text" placeholder="Search">
-        </div> -->
-        
-          <input type="text" class="form-control" placeholder="Search In Zeedas">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right tour-notif">
-        <!-- <li>
-          <router-link :to="{ name: 'login' }" >Sign in</router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'signup' }" >Sign up</router-link>
-        </li> -->
-        
-        
-      </ul>
-    </div>
-  </div>
-</nav>
+  </header>
 </template>
 
 <script>
+  export default {
+    name: "baseheader",
+    data() {
+      return {
+        authenticated: false,
+        username: '',
+        search:''
+      }
+    },
+    methods: {
 
-export default {
-  name: "baseheader",
-  
-   computed: {
-     
-      isNotLoginPage() {
-        if (this.$route.name === "login" || this.$route.name === "signup") {
-          return false;
-        }
-        return true;
+      logout() {
+        localStorage.clear();
+        this.$router.push('/login')
       },
-      isNotLanding() {
-        if (this.$route.name === "Index") {
-          return false;
+      searchFunction(){
+        let searchItem = {
+          search: this.search
         }
-        return true;
+        this.axios.post(`http://localhost:4000/api/search/all`, searchItem).then(response => {
+          this.$route.push('/searchResult')
+        })
+      }
+
+    },
+
+    mounted() {
+      if (localStorage.userToken) {
+        this.authenticated = true
+        this.username = this.$route.params.username
+      } else {
+        this.authenticated = false
+      }
+    },
+
+    watch: {
+      '$route': function (from, to) {
+        if (localStorage.userToken) {
+          this.authenticated = true
+          this.username = this.$route.params.username
+
+        } else {
+          this.authenticated = false
+        }
       }
     }
-};
+    // computed: {
+
+    //   isNotLoginPage() {
+    //     if (this.$route.name === "login" || this.$route.name === "signup") {
+    //       return false;
+    //     }
+    //     return true;
+    //   },
+    //   isNotLanding() {
+    //     if (this.$route.name === "LandingPage") {
+    //       return false;
+    //     }
+    //     return true;
+    //   }
+    // }
+  };
+
 </script>
 
-<style>
+<style scoped>
+  .logout-btn {
+    margin-top: 15px;
+  }
 
-.logo {
-    display: inline-block;
-    margin-top: 6%;
-}
+  .searchBar {
+    padding: 5px;
+    max-width: 40%;
+    margin-right: 5px;
+    display: inline !important;
+  }
 
-.logo p {
-    float: right;
-    font-size: 18px;
-    font-weight: 900;
-    margin-left: 5px;
-    margin-top: 6px;
-}
+  .searchIcon{
+    display: inline !important;
+    padding: 10px;
+    margin-top: 15px;
+    margin-right: 10px
+  }
 
-.logo img {
-    height: 32px;
-    width: 32px;
-    float: left;
+  .search{
+    margin-right: 20px
+  }
 
-}
-span.nav-notif.ion-asterisk {
-    position: absolute;
-    font-size: 7px;
-    top: -29%;
-    color: white;
-    left: 60%;
-    background: #ef57b7;
-    border-radius: 50%;
-    padding: 0px 5px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.24);
-    max-height: 17px;
-}
-
-ul.nav.navbar-nav.navbar-right.tour-notif i {
-    font-size: 20px !important;
-}
 </style>

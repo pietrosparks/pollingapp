@@ -19,19 +19,34 @@ var pollSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    creatorUserName: {
+        type: String, 
+        required: true
+    },
     dateCreated: {
         type: Date,
         default: Date.now()
     },
     status:{
         type: String,
-        default: 'started',
-        enum: ['started', 'finished']
+        default: '0',
+        enum: ['0', '1']
     },
-    voted:{
-        type: String
+    votedUsers:{
+        type:Array
         
+    }, 
+    maxCount: {
+        type: String, 
+    }, 
+    pollID:{
+        type: String,
+        required: true 
+    },
+    result:{
+        type:Array
     }
+    
 })
 
 module.exports = mongoose.model('Poll', pollSchema);
