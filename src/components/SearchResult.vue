@@ -9,11 +9,17 @@
         <div class="columns is-variable is-4">
 
           <div class="column is-one-quarter">
-            <UserProfileMenu :userCred="userCred" :getUserData="getUserData" :fetchEventData="fetchEventData"></UserProfileMenu>
+          <UserSearch :userCred="userCred"></UserSearch>
           </div>
           <div class="column is-three-quarter">
             <UserProfileTimeline :userEvents="userEvents" :getUserData="getUserData" :fetchEventData="fetchEventData"></UserProfileTimeline>
           </div>
+
+          <div v-if="searchReady == true">
+              
+              <SearchResults></SearchResults>
+           
+            </div>
 
         </div>
       </section>
@@ -27,14 +33,16 @@
 <script>
   import UserProfileMenu from '@/components/UserProfileMenu'
   import UserProfileTimeline from '@/components/UserProfileTimeline'
+  import UserSearch from '@/components/SearchUserHolder'
+  import SearchResults from '@/components/SearchModal'
+
+  
 
   export default {
-    props: ['userSearch'],
     name: 'User',
     data() {
       return {
-        userID: '',
-        userCred: '',
+        userID: this.$store.state.searchResult.userID,
         userEvents: '',
         openPollOptions: false,
 
@@ -42,74 +50,87 @@
     },
     components: {
       UserProfileMenu,
-      UserProfileTimeline
+      UserProfileTimeline,
+      UserSearch,
+      SearchResults
     },
     methods: {
-      // pollReset() {
-      //   return {
-      //     pollOptionsArray: []
-      //   }
-      // },
+      pollReset() {
+        return {
+          pollOptionsArray: []
+        }
+      },
 
 
-      // createPoll() {
+      createPoll() {
 
-      //   this.isLoading = true;
-      //   const getLocalStorageItems = JSON.parse(localStorage.getItem('userID'));
-      //   this.pollObject.name = this.poll.pollName;
-      //   this.pollObject.description = this.poll.pollDescription;
-      //   this.pollObject.options = this.poll.pollOptionsArray;
-      //   this.pollObject.creatorID = this.userCred.userID
-      //   this.pollObject.creatorUserName = this.userCred.userName
-      //   this.pollObject.maxCount = this.poll.pollMaxCount
+        this.isLoading = true;
+        const getLocalStorageItems = JSON.parse(localStorage.getItem('userID'));
+        this.pollObject.name = this.poll.pollName;
+        this.pollObject.description = this.poll.pollDescription;
+        this.pollObject.options = this.poll.pollOptionsArray;
+        this.pollObject.creatorID = this.userCred.userID
+        this.pollObject.creatorUserName = this.userCred.userName
+        this.pollObject.maxCount = this.poll.pollMaxCount
 
 
-      //   this.axios.post('http://localhost:4000/api/poll/new', this.pollObject).then(response => {
+        this.axios.post('http://localhost:4000/api/poll/new', this.pollObject).then(response => {
 
-      //     this.isLoading = false
-      //     this.$swal({
-      //       title: 'Success',
-      //       text: `${response.data.message}`,
-      //       timer: 1500,
-      //       showConfirmButton: false,
-      //       type: 'success'
-      //     });
+          this.isLoading = false
+          this.$swal({
+            title: 'Success',
+            text: `${response.data.message}`,
+            timer: 1500,
+            showConfirmButton: false,
+            type: 'success'
+          });
 
-      //     this.fetchEventData();
-      //     this.getUserData();
-      //     this.pollModal();
-      //     this.poll = this.pollReset()
+          this.fetchEventData();
+          this.getUserData();
+          this.pollModal();
+          this.poll = this.pollReset()
 
-      //   })
-      // },
+        })
+      },
 
-      // getUserData() {
-      //   this.axios.get(`http://localhost:4000/api/user/${this.userID}`).then(response => {
-      //     this.userCred = response.data
-      //   })
-      // },
-      // fetchEventData() {
-      //   this.axios.get(`http://localhost:4000/api/events/user/${this.userID}`).then(response => {
-      //     this.userEvents = response.data
-      //   })
-      // },
-      // logout() {
-      //   localStorage.clear();
-      //   this.$router.push('/')
-      // },
+      getUserData() {
+        this.axios.get(`http://localhost:4000/api/user/${this.userID}`).then(response => {
+          this.userCred = response.data
+        })
+      },
+      fetchEventData() {
+        this.axios.get(`http://localhost:4000/api/events/user/${this.userID}`).then(response => {
+          this.userEvents = response.data
+        })
+      },
+      logout() {
+        localStorage.clear();
+        this.$router.push('/')
+      },
 
     },
+    computed: {
+      userCred: function () {
+        return this.$store.state.searchResult
+      },
+      searchReady: function () {
+        return this.$store.state.searchIsOngoing
+      }
+    },
     created() {
-    //   const getLocalStorageID = JSON.parse(localStorage.getItem('userID'));
-    //   this.userID = getLocalStorageID
+      //   const getLocalStorageID = JSON.parse(localStorage.getItem('userID'));
+      //   this.userID = getLocalStorageID
+      
+      this.fetchEventData();
+      
     },
 
     mounted() {
+    
 
-        console.log(this.userSearch)
 
-    //   this.getUserData();
-    //   this.fetchEventData();
+      //   this.getUserData();
+      //   this.fetchEventData();
 
     },
 

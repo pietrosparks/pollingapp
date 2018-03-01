@@ -12,7 +12,7 @@ var eventSchema = mongoose.Schema({
     }, 
     eventType:{
         type: String,
-        enum: ['created', 'voted', 'shared', 'commented', 'followed']
+        enum: ['created', 'voted', 'shared', 'commented', 'followed', 'following']
     },
     date:{
         type: Date, 

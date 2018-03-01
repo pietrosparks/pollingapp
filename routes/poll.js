@@ -28,7 +28,7 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
         let eventParticipant = {
           name: pollDetails.name,
           id: pollDetails.pollID,
-          type: 0
+          type: 'Poll'
         }
 
         Events.create({

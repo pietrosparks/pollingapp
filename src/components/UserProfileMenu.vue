@@ -17,6 +17,12 @@
         <h3 class="title is-size-6">
           <span class="is-primary-color" v-if="userCred.answeredPolls">{{userCred.answeredPolls.length}} </span>Polls answered</h3>
         </h3>
+        <h3 class="title is-size-6">
+            <span class="is-primary-color" v-if="userCred.answeredPolls">{{userCred.followers.length}} </span>Followers</h3>
+          </h3>
+          <h3 class="title is-size-6">
+              <span class="is-primary-color" v-if="userCred.answeredPolls">{{userCred.following.length}} </span>Following</h3>
+            </h3>
         <a class="button is-primary" @click="pollModal()">Create a new poll</a>
       </div>
       <br>
@@ -98,10 +104,11 @@
 <script>
   export default {
     name: 'UserProfileMenu',
-    props: ['userCred', 'getUserData', 'fetchEventData'],
+    props: [ 'getUserData', 'fetchEventData'],
 
     data() {
       return {
+
         isModalOpen: false,
         isLoading: false,
         pollObject: {},
@@ -117,7 +124,7 @@
     methods: {
       pollModal() {
         this.isModalOpen = !this.isModalOpen
-       
+
       },
       removeOption(index) {
         this.poll.pollOptionsArray.splice(index, 1);
@@ -138,13 +145,13 @@
         this.pollObject.name = this.poll.pollName;
         this.pollObject.description = this.poll.pollDescription;
         this.pollObject.options = this.poll.pollOptionsArray;
-        this.pollObject.creatorID = this.userCred.userID
-        this.pollObject.creatorUserName = this.userCred.userName
+        this.pollObject.creatorID = getLocalStorageItems
+        this.pollObject.creatorUserName = this.$store.state.userCred.userName
         this.pollObject.maxCount = this.poll.pollMaxCount
 
 
         this.axios.post('http://localhost:4000/api/poll/new', this.pollObject).then(response => {
-
+          console.log(response, "heyss")
           this.isLoading = false
           this.$swal({
             title: 'Success',
@@ -161,6 +168,16 @@
 
         })
       }
+    },
+
+    computed: {
+      userCred: function () {
+        return this.$store.state.userCred
+      }
+    },
+
+    mounted() {
+
     }
   }
 

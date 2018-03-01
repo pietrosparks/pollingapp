@@ -7,15 +7,20 @@ import SearchResult from '@/components/SearchResult'
 
 Vue.use(Router)
 
-const router =  new Router({
+const router = new Router({
   mode: 'history',
-  routes: [
+  routes: [{
+      path: '/',
+      redirect: {
+        name: 'Login'
+      }
+    },
     {
       path: '/signup',
       name: 'Signup',
       component: Signup
     },
-     {
+    {
       path: '/login',
       name: 'Login',
       component: Login
@@ -28,7 +33,8 @@ const router =  new Router({
     {
       path: '/search/user/:username',
       name: 'SearchResult',
-      component: SearchResult
+      component: SearchResult,
+      props: true
     }
   ]
 })

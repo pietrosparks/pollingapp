@@ -19,9 +19,22 @@
                   <div class="content">
                     <p>
                       <strong class="username">{{event.userName}}</strong>
-                      <span>
+                      <span v-if="event.eventType=='created'">
+
                         <span>{{event.eventType}}</span> a poll titled</span>
-                      <span class="is-primary-color " @click='openEvent(event)'>{{event.participant.name}}</span>
+                      <span v-if="event.eventType=='followed'">
+
+                        <span> {{event.eventType}}</span>
+
+                      </span>
+                      <span v-if="event.eventType=='following'">
+
+                        <span> followed you </span>
+
+                      </span>
+                      <span v-if="event.eventType=='followed'" class="is-primary-color " @click='openUser(event)'>{{event.participant.name}}</span>
+                      <span v-if="event.eventType=='created'" class="is-primary-color " @click='openEvent(event)'>{{event.participant.name}}</span>
+                      <timeago :since="event.date"></timeago>
                       <br>
 
                       <div class="field">
@@ -157,7 +170,7 @@
             let dataArr = []
 
             this.selectedPollData.options.forEach(label => {
-             
+
               labels.push(label.name)
               dataArr.push(label.result)
               colors.push(this.randomColor())
@@ -167,7 +180,7 @@
               backgroundColor: colors,
               data: dataArr
             })
-          
+
 
             this.customChartData = dataFigures
             this.customChartDataLabel = labels
@@ -183,6 +196,14 @@
           })
         }
       },
+      openUser(user) {
+        console.log(user, 'jd')
+        this.$store.dispatch('selectUser', user.participant.id).then(response => {
+          this.$router.push({
+            path: `/search/user/${this.$store.state.searchResult.userName}`
+          })
+        })
+      },
       isEmpty(obj) {
         for (var key in obj) {
           if (obj.hasOwnProperty(key))
@@ -191,13 +212,13 @@
         return true;
       },
       hasVoted(obj) {
-        
+
         const UserID = JSON.parse(localStorage.userID)
         if (obj.votedUsers.includes(UserID)) {
           this.userHasVoted = true
         } else this.userHasVoted = false
         console.log(this.userHasVoted)
-        
+
       }
 
     },

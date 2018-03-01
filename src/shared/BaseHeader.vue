@@ -16,36 +16,36 @@
 
           <span class="navbar-item has-text-centered">
 
-            <a class="button is-success is-outlined" @click="toggleLogin()">Login</a>
+            <router-link class="button is-success is-outlined" to="/">Login</router-link>
           </span>
           <span class="navbar-item has-text-centered">
 
-            <a class="button is-success is-outlined" @click="toggleLogin()">Sign Up</a>
+            <router-link class="button is-success is-outlined" to="/signup">Sign Up</router-link>
           </span>
         </div>
         <div class="navbar-end " v-else>
           <div class="search">
-            
+
           </div>
           <div class="searchBar">
 
             <div class="field">
               <label class="label">Search</label>
               <div class="control has-icons-left has-icons-right">
-                <input class="input is-success" type="text" placeholder="Search" v-model="search" >
+                <input class="input is-success" type="text" placeholder="Search" v-model="search">
                 <span class="icon is-small is-left">
                   <i class="fas fa-user"></i>
                 </span>
-               
+
 
               </div>
 
             </div>
-            
+
           </div>
           <div class="searchIcon" @click="searchFunction()">
-              <img src="../assets/search.png" alt="">
-            </div>
+            <img src="../assets/search.png" alt="">
+          </div>
           <span class="navbar-item has-text-centered">
 
             <h3 class="is-size-3">
@@ -65,51 +65,80 @@
 </template>
 
 <script>
+  import {
+    EventBus
+  } from '../main';
+
   export default {
     name: "baseheader",
     data() {
       return {
-        authenticated: false,
-        username: '',
-        search:''
+
+
+        search: ''
       }
     },
     methods: {
 
       logout() {
-        localStorage.clear();
-        this.$router.push('/login')
+        this.$store.commit('authLogout')
+        this.$router.push('/')
       },
-      searchFunction(){
-        let searchItem = {
-          search: this.search
-        }
-        this.axios.post(`http://localhost:4000/api/search/all`, searchItem).then(response => {
-          this.$route.push('/searchResult')
+      searchFunction() {
+
+        var options = {
+          shouldSort: true,
+          matchAllTokens: true,
+          threshold: 0.6,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 2,
+          keys: [
+            "userName",
+            
+          ]
+        };
+
+        this.$search(this.search, this.$store.state.allUsers, options).then(results => {
+ 
+          this.$store.commit('setupSearchResult', results)
+          this.$store.commit('setupSearch')
         })
+       
+        // let searchItem = {
+        //   search: this.search
+        // }
+
+        // this.$store.dispatch('search', searchItem).then(response=>{
+
+        //   this.$router.push({
+        //     path:`/search/user/${this.$store.state.searchResult.userName}`
+        //   })
+        // })
+
       }
 
     },
 
-    mounted() {
-      if (localStorage.userToken) {
-        this.authenticated = true
-        this.username = this.$route.params.username
-      } else {
-        this.authenticated = false
+    created() {
+
+
+
+    },
+
+    computed: {
+      username: function () {
+        return this.$store.state.userCred.userName
+      },
+
+      authenticated: function () {
+        return this.$store.state.isAuth
       }
     },
 
     watch: {
-      '$route': function (from, to) {
-        if (localStorage.userToken) {
-          this.authenticated = true
-          this.username = this.$route.params.username
 
-        } else {
-          this.authenticated = false
-        }
-      }
     }
     // computed: {
 
@@ -142,14 +171,14 @@
     display: inline !important;
   }
 
-  .searchIcon{
+  .searchIcon {
     display: inline !important;
     padding: 10px;
     margin-top: 15px;
     margin-right: 10px
   }
 
-  .search{
+  .search {
     margin-right: 20px
   }
 
