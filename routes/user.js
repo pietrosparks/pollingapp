@@ -13,6 +13,7 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
   })
 
   api.get('/users/all', (req, res) => {
+    console.log(req.connection.remoteAddress,"hdhdhd")
     let output = []
     Users.find((err, users) => {
       if (err) {
@@ -102,7 +103,7 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
       })
     })
   })
-  
+
   api.post('/user/unfollow', (req, res) => {
     let returnObject = {}
 

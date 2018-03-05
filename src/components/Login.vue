@@ -123,7 +123,7 @@
           this.$store.dispatch('getAllUsers').then(response => {
 
             setTimeout(() => {
-              
+
               if (this.isAuthenticated == true) {
 
                 this.$swal({
@@ -137,14 +137,28 @@
                   }
                 });
 
-                setTimeout(() => {
-                  this.$router.push({
-                    name: 'User',
-                    params: {
-                      username: this.$store.state.userCred.userName
-                    }
-                  })
-                }, 500);
+                if (this.$store.state.pendingPoll !== null) {
+                 
+                  setTimeout(() => {
+                 
+                    this.$router.push({
+                      name: 'VoteView',
+                      params: {
+                        pollId: this.$store.state.pendingPoll.pollID
+                      }
+                    })
+                  }, 500);
+                } else {
+                  setTimeout(() => {
+                    this.$router.push({
+                      name: 'User',
+                      params: {
+                        username: this.$store.state.userCred.userName
+                      }
+                    })
+                  }, 500);
+                }
+
 
               } else {
                 this.$swal('Failure', `Username or Password is wrong`, 'error');

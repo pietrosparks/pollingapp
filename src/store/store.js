@@ -50,6 +50,12 @@ const mutations = {
   },
   setupAllUsers(state, resp){
       state.allUsers = resp
+  },
+  keepPendingPoll(state, resp){
+    state.pendingPoll = resp
+  },
+  clearPendingPoll(state, resp){
+    state.pendingPoll = null
   }
 
 

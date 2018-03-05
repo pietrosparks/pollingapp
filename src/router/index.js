@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import User from '@/components/User'
 import SearchResult from '@/components/SearchResult'
+import VoteView from '@/components/VoteView'
 
 Vue.use(Router)
 
@@ -34,6 +35,12 @@ const router = new Router({
       path: '/search/user/:username',
       name: 'SearchResult',
       component: SearchResult,
+      props: true
+    },
+    {
+      path: '/poll/shared/:pollId',
+      name: 'VoteView',
+      component: VoteView,
       props: true
     }
   ]

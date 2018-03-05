@@ -29,7 +29,8 @@
                       </span>
                       <span v-if="event.eventType=='following'">
 
-                        <span> followed you </span>
+                        <span class="is-primary-color ">{{event.participant.name}}</span> followed you </span>
+                      </span>
 
                       </span>
                       <span v-if="event.eventType=='followed'" class="is-primary-color " @click='openUser(event)'>{{event.participant.name}}</span>
@@ -64,6 +65,9 @@
           <div class="content-wrapper">
             <h3 class="medium is-size-3">{{selectedPollData.name}}</h3>
             <h3 class="is-size-4">{{selectedPollData.description}}</h3>
+          </div>
+          <div class="share is-horizontal-center" @click="shareTwitter(selectedPollData)">
+            <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
           </div>
           <br>
           <div v-if="!userHasVoted">
@@ -154,7 +158,8 @@
       openEvent(event) {
 
         this.openEventModal();
-        if (event.participant.type == 0) {
+        if (event.participant.type == 'Poll') {
+
           this.shownPoll = event;
           this.axios.get(`http://localhost:4000/api/poll/${event.participant.id}`).then(response => {
 
@@ -219,8 +224,20 @@
         } else this.userHasVoted = false
         console.log(this.userHasVoted)
 
+      },
+      shareTwitter(poll) {
+        
+       var split = poll.name.split(' ');
+       var newString =[];
+       split.forEach(resp=>{
+        newString.push(resp+"%20")
+       })
+       var finished = newString.join("");
+       
+        var text =
+          `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+http://localhost:8089/poll/shared/${poll.pollID}`
+       console.log(text)
       }
-
     },
 
 
@@ -325,6 +342,11 @@
     min-width: 40% !important;
     margin-bottom: 5px;
     border-radius: 20px;
+  }
+
+  .twitter-share {
+    width: 40px;
+    height: auto
   }
 
 </style>
