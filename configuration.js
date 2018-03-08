@@ -5,6 +5,7 @@ var bodyParser = require('body-parser'),
   logger = require('morgan'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
+  serveStatic = require('serve-static');
   // passport = require('passport'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
@@ -66,6 +67,7 @@ module.exports = (app, express) => {
   app.use(bodyParser.urlencoded({
     extended: false
   }))
+  app.use(serveStatic(__dirname + "/dist"));
 
   // app.use(session({
   //   secret: 'thisIsNotASecret',
