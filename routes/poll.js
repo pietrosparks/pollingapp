@@ -1,4 +1,4 @@
-module.exports = (api, Users, functions, _, Polls, Events) => {
+module.exports = (api, Users, functions, _, Polls, Events, requestIp) => {
 
   api.post('/poll/new', (req, res) => {
 
@@ -52,19 +52,22 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
   })
 
   api.get('/poll/:pollId', (req, res) => {
-
+    let guestIp = requestIp.getClientIp(req);
     Polls.findOne({
       pollID: req.params.pollId
     }, (err, poll) => {
       if (err) {
         throw (err)
       }
-      res.json(poll);
+      res.json({
+        poll,
+        guestIp
+      });
     })
   })
 
   api.put('/poll/:pollId', (req, res) => {
-
+    
 
     Polls.findOneAndUpdate({
       pollID: req.params.pollId,
@@ -87,8 +90,10 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
         $push: {
           'profile.answeredPolls': poll.pollID
         }
+      }, {
+        new: true
       }, (err, user) => {
-
+        let returningUser = user.profile
         Polls.findOne({
           pollID: req.params.pollId,
         }, (err, poll) => {
@@ -98,9 +103,9 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
             option.result = (Number(option.count) / Number(poll.votedUsers.length)) * 100
             return option;
           })
-         
 
-          Polls.update({
+
+          Polls.findOneAndUpdate({
             pollID: req.params.pollId
           }, {
             $set: {
@@ -110,14 +115,79 @@ module.exports = (api, Users, functions, _, Polls, Events) => {
           }, {
             new: true
           }, (err, poll) => {
+           
             if (err) {
               throw (err)
             }
             res.json({
-              message: "Vote has been cast successfully"
+              message: "Vote has been cast successfully",
+              user: returningUser,
+              poll:poll
             })
           })
         })
+
+      })
+
+    })
+
+
+
+
+  })
+
+  api.put('/poll/guest/:pollId', (req, res) => {
+
+    const clientIp = requestIp.getClientIp(req); 
+    
+
+    Polls.findOneAndUpdate({
+      pollID: req.params.pollId,
+      'options.id': req.body.count.id
+    }, {
+      $set: {
+        'options.$.count': req.body.count.count,
+
+      },
+      $push: {
+        votedUsers: clientIp
+      }
+    }, {
+      new: true
+    }, (err, poll) => {
+     
+        Polls.findOne({
+          pollID: req.params.pollId,
+        }, (err, poll) => {
+
+          var votesArray = poll.options;
+          var updatedVotesArray = votesArray.map(option => {
+            option.result = (Number(option.count) / Number(poll.votedUsers.length)) * 100
+            return option;
+          })
+
+
+          Polls.findOneAndUpdate({
+            pollID: req.params.pollId
+          }, {
+            $set: {
+              options: updatedVotesArray
+            },
+
+          }, {
+            new: true
+          }, (err, poll) => {
+           
+            if (err) {
+              throw (err)
+            }
+            res.json({
+              message: "Vote has been cast successfully",
+              poll:poll,
+              guestIp: clientIp
+            })
+          })
+        
 
       })
 

@@ -5,7 +5,7 @@
       <div class="modal-content">
 
         <div v-if="loggedInOrNot == false">
-          <div class="box">
+          <div class="box" v-if="guestLogin==false">
             <div class="image-wrapper">
               <div class="is-horizontal-center image is-64x64">
                 <img src="../assets/avataaars.png" alt="Image">
@@ -18,14 +18,12 @@
 
             <div class="contentWrapper">
               <a class="button is-primary" @click="voteAsUser">Vote as User</a>
-              <a class="button is-primary">Vote as Guest</a>
+              <a class="button is-primary" @click="voteAsGuest">Vote as Guest</a>
             </div>
-
-
-
           </div>
         </div>
-        <div v-else>
+
+        <div v-if="loggedInOrNot == true || guestLogin == true">
           <div class="box">
 
             <div class="image-wrapper">
@@ -41,6 +39,7 @@
               <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
             </div>
             <br>
+
             <div v-if="userHasVoted == true">
               <hr>
               <h1>Result</h1>
@@ -50,26 +49,41 @@
               <hr>
               <LineChart :chart-data="justChartData"></LineChart>
             </div>
+
             <div v-else>
 
-
-              <div class="content-wrapper">
-                <div class="answer-button  " v-for="option in selectedPollData.options">
-                  <a class="button is-rounded is-large is-primary answer-button" @click="vote(option)">{{option.name}}</a>
+              <div v-if="guestLogin == false">
+                <div class="content-wrapper">
+                  <div class="answer-button  " v-for="option in selectedPollData.options">
+                    <a class="button is-rounded is-large is-primary answer-button" @click="vote(option)">{{option.name}}</a>
+                  </div>
                 </div>
               </div>
+              <div v-else>
+                <div class="content-wrapper">
+                  <div class="answer-button  " v-for="option in selectedPollData.options">
+                    <a class="button is-rounded is-large is-primary answer-button" @click="guestVote(option)">{{option.name}}</a>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
 
-            <div v-if="!userHasVoted">
 
-            </div>
 
           </div>
         </div>
 
       </div>
-      <button class="modal-close is-large" aria-label="close" @click="openEventModal"></button>
+      <div v-if="guestLogin == false">
+          <button class="modal-close is-large" aria-label="close" @click="closeUserSession"></button>
+      </div>
+      <div v-else>
+          <button class="modal-close is-large" aria-label="close" @click="closeGuestSession"></button>
+        </div>
+      </div>
+     
     </div>
   </div>
 </template>
@@ -91,7 +105,8 @@
         userHasVoted: '',
         justChartData: '',
         customChartDataLabel: '',
-        customChartData: ''
+        customChartData: '',
+        guestIp: ''
 
       }
     },
@@ -101,15 +116,23 @@
         this.$store.commit('keepPendingPoll', this.selectedPollData)
         this.$router.push('/')
       },
-      hasVoted(obj) {
+      voteAsGuest() {
+        this.guestLogin = true
 
-        const UserID = JSON.parse(localStorage.userID)
-        if (obj.votedUsers.includes(UserID)) {
-          this.userHasVoted = true
-        } else this.userHasVoted = false
-        console.log(this.userHasVoted)
+        if (this.loggedInOrNot == true) {
+          this.computedVoting;
+        } else this.computedGuestVoting
 
       },
+      // hasVoted(obj) {
+
+      //   const UserID = JSON.parse(localStorage.userID)
+      //   if (obj.votedUsers.includes(UserID)) {
+      //     this.userHasVoted = true
+      //   } else this.userHasVoted = false
+      //   console.log(this.userHasVoted)
+
+      // },
       isEmpty(obj) {
         for (var key in obj) {
           if (obj.hasOwnProperty(key))
@@ -117,15 +140,27 @@
         }
         return true;
       },
-      openEventModal() {
+     closeUserSession() {
 
-        this.isEventModalOpen = !this.isEventModalOpen
-        this.userHasVoted = false
+        // this.isEventModalOpen = !this.isEventModalOpen
+        // this.userHasVoted = false
+        this.$store.commit('clearPendingPoll')
+        this.$router.push({
+          path: `/user/${this.$store.state.userCred.userName}`
+        })
+
+      },
+      closeGuestSession() {
+
+        // this.isEventModalOpen = !this.isEventModalOpen
+        // this.userHasVoted = false
+        this.$store.commit('clearPendingPoll')
+        this.$router.push('/')
 
       },
       openEvent(event) {
 
-        this.openEventModal();
+        // this.openEventModal();
         if (event.participant.type == 'Poll') {
 
           this.shownPoll = event;
@@ -187,7 +222,7 @@
             voter: JSON.parse(localStorage.userID)
           }
         this.axios.put(`http://localhost:4000/api/poll/${this.selectedPollData.pollID}`, voteObject).then(response => {
-          console.log(response.data)
+
           this.$swal({
             title: 'Success',
             text: `${response.data.message}`,
@@ -196,61 +231,109 @@
             type: 'success'
           });
 
-
-          this.hasVoted(this.selectedPollData)
+          this.$store.commit('updateUserState', response.data.user)
+          this.$store.commit('keepPendingPoll', response.data.poll)
+          // this.hasVoted(this.selectedPollData)
+          this.computedVoting;
           this.graphCompiler()
 
           /* Chart Data Gathering */
 
-        
+
         })
       },
+      guestVote(option) {
+
+        option.count++
+          let voteObject = {
+            count: option,
+            voter: 'Guest'
+          }
+        this.axios.put(`http://localhost:4000/api/poll/guest/${this.selectedPollData.pollID}`, voteObject).then(
+          response => {
+
+            this.$swal({
+              title: 'Success',
+              text: `${response.data.message}`,
+              timer: 1500,
+              showConfirmButton: false,
+              type: 'success'
+            });
+
+
+            this.$store.commit('keepPendingPoll', response.data.poll)
+            this.guestIp = response.data.guestIp
+            // this.hasVoted(this.selectedPollData)
+            this.computedGuestVoting;
+            this.graphCompiler()
+
+            /* Chart Data Gathering */
+
+
+          })
+      },
       graphCompiler() {
-      let labels = [];
-      let dataFigures = [];
-      let colors = []
-      let dataArr = []
+        let labels = [];
+        let dataFigures = [];
+        let colors = []
+        let dataArr = []
 
-      this.selectedPollData.options.forEach(label => {
+        this.selectedPollData.options.forEach(label => {
 
-        labels.push(label.name)
-        dataArr.push(label.result)
-        colors.push(this.randomColor())
+          labels.push(label.name)
+          dataArr.push(label.result)
+          colors.push(this.randomColor())
 
-      })
-      dataFigures.push({
-        backgroundColor: colors,
-        data: dataArr
-      })
+        })
+        dataFigures.push({
+          backgroundColor: colors,
+          data: dataArr
+        })
 
 
-      this.customChartData = dataFigures
-      this.customChartDataLabel = labels
-      this.justChartData = this.chartDataFunc();
-      console.log(this.justChartData, "lino")
+        this.customChartData = dataFigures
+        this.customChartDataLabel = labels
+        this.justChartData = this.chartDataFunc();
+        console.log(this.justChartData, "lino")
 
-    }
+      }
     },
     computed: {
       loggedInOrNot() {
-        if (this.$store.state.userCred !== null) {
+
+        if (this.$store.state.userCred !== null && this.isEmpty(this.$store.state.userCred) !== true) {
           return true
         } else return false
-
+        console.log(this.loggedInOrNot)
       },
 
+      computedVoting() {
+        const UserID = JSON.parse(localStorage.userID)
+        if (this.$store.state.pendingPoll.votedUsers.includes(UserID)) {
+          return this.userHasVoted = true
+        } else return this.userHasVoted = false
+        console.log(this.userHasVoted)
+      },
+      computedGuestVoting() {
+        console.log(this.guestIp,"jdkjd")
+        if (this.$store.state.pendingPoll.votedUsers.includes(this.guestIp)) {
+          return this.userHasVoted = true
+        } else return this.userHasVoted = false
+        console.log(this.userHasVoted)
+      }
+
     },
-   
+
     created() {
 
-
-
-
-
       this.axios.get(`http://localhost:4000/api/poll/${this.$route.params.pollId}`).then(response => {
+        this.$store.commit('keepPendingPoll', response.data.poll);
+        this.selectedPollData = response.data.poll
+        this.guestIp = response.data.guestIp
+        if (this.loggedInOrNot == true) {
+          this.computedVoting;
+        } else this.computedGuestVoting
 
-        this.selectedPollData = response.data
-        this.hasVoted(this.selectedPollData)
         this.graphCompiler()
       })
     },

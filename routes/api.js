@@ -3,6 +3,7 @@ const _ = require('lodash');
 const JWT = require('jsonwebtoken');
 const Twitter = require('node-twitter-api');
 const bluebird = require('bluebird');
+const requestIp = require('request-ip');
 const secret= require ('../dbconfig/secrets');
 
 
@@ -17,7 +18,7 @@ module.exports = (express)=>{
     const api = express.Router();
     
     require('./auth')(api, Users, functions, _, Poller, Twitter, bluebird, secret);
-    require('./poll')(api, Users, functions, _ , Polls, Events);
+    require('./poll')(api, Users, functions, _ , Polls, Events, requestIp);
     require('./user')(api, Users, functions, _ , Polls, Events);
     require('./events')(api, Users, functions, _ , Polls, Events);
     require('./search')(api, Users, functions, _ , Polls, Events);

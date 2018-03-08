@@ -11,7 +11,7 @@ var debug = require('debug')('techverse:server');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(4000);
+var port = process.env.PORT || normalizePort(4000) ;
 app.set('port', port);
 
 /**

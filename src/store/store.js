@@ -54,9 +54,10 @@ const mutations = {
   keepPendingPoll(state, resp){
     state.pendingPoll = resp
   },
-  clearPendingPoll(state, resp){
+  clearPendingPoll(state){
     state.pendingPoll = null
-  }
+  },
+  
 
 
 }
