@@ -84,7 +84,7 @@ module.exports = (app, express) => {
 
   //catch errors 
   app.use((req, res, next) => {
-    var err = new Error("Not Found");
+    var err = new Error("Not Found ");
     err.status = 404;
     next(err);
   })
