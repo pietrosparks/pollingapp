@@ -7,7 +7,7 @@
   "scripts": {
     
     "preinstall": "npm install pm2 -g",
-    "start": "pm2 start ./bin/www --name 'pollingapp' -- start --watch",
+    "start": "pm2 start ./bin/www --name 'pollingapp' --watch",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "lint": "eslint --ext .js,.vue src",
