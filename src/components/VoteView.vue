@@ -294,7 +294,7 @@
         this.customChartData = dataFigures
         this.customChartDataLabel = labels
         this.justChartData = this.chartDataFunc();
-        console.log(this.justChartData, "lino")
+       
 
       }
     },
@@ -304,7 +304,6 @@
         if (this.$store.state.userCred !== null && this.isEmpty(this.$store.state.userCred) !== true) {
           return true
         } else return false
-        console.log(this.loggedInOrNot)
       },
 
       computedVoting() {
@@ -312,10 +311,9 @@
         if (this.$store.state.pendingPoll.votedUsers.includes(UserID)) {
           return this.userHasVoted = true
         } else return this.userHasVoted = false
-        console.log(this.userHasVoted)
       },
       computedGuestVoting() {
-        console.log(this.guestIp,"jdkjd")
+        
         if (this.$store.state.pendingPoll.votedUsers.includes(this.guestIp)) {
           return this.userHasVoted = true
         } else return this.userHasVoted = false
@@ -327,9 +325,11 @@
     created() {
 
       this.axios.get(`http://localhost:4000/api/poll/${this.$route.params.pollId}`).then(response => {
+
         this.$store.commit('keepPendingPoll', response.data.poll);
         this.selectedPollData = response.data.poll
         this.guestIp = response.data.guestIp
+
         if (this.loggedInOrNot == true) {
           this.computedVoting;
         } else this.computedGuestVoting

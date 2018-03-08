@@ -11,17 +11,17 @@ var bodyParser = require('body-parser'),
 
 
 
-  //CORS CONFIGURATION
+//CORS CONFIGURATION
 
-  const incomingOriginWhitelist = [
-    //for machines that use 'origin'
-    'http://localhost:4000',
-    //for machines that use 'host'
-    'localhost:4000',
-    'https://api.twitter.com',
-    'api.twitter.com',
-    
-  ]
+const incomingOriginWhitelist = [
+  //for machines that use 'origin'
+  'http://localhost:4000',
+  //for machines that use 'host'
+  'localhost:4000',
+  'https://api.twitter.com',
+  'api.twitter.com',
+
+]
 
 //CORS only takes requests hence the (req , next )
 //Takes the request checks the header and passes it on to the next process
