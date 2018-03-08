@@ -5,13 +5,14 @@
   "author": "Idakwoji Theophilus <pietrosparks@gmail.com>",
   "private": true,
   "scripts": {
-    "preinstall": "npm install pm2 -g",
+    
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run node",
+    "start": "node ./bin/www",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js",
-    "node": "pm2 start ./bin/www --name 'pollingapp' -- start --watch"
+    "build": "node build/build.js"
+    // "node": "pm2 start ./bin/www --name 'pollingapp' -- start --watch"
+   
   },
   "dependencies": {
     "axios": "^0.17.1",
