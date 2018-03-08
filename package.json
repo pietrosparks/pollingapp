@@ -7,7 +7,7 @@
   "scripts": {
     
     "preinstall": "npm install pm2 -g",
-    "start": "pm2 start --attach ./bin/www",
+    "start": "pm2 runtime ./bin/www -i max",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "lint": "eslint --ext .js,.vue src",
