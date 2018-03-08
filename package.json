@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     
+    "preinstall": "npm install pm2 -g",
+    "start": "pm2 start --attach ./bin/www",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "node ./bin/www",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
