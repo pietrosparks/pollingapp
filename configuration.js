@@ -9,6 +9,7 @@ var bodyParser = require('body-parser'),
   // passport = require('passport'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
+  history = require('connect-history-api-fallback');
 
 
 
@@ -63,6 +64,7 @@ module.exports = (app, express) => {
 
   //Initializing body parser 
   app.use(bodyParser.json());
+  app.use(history())
   // app.use(cookieParser);
   app.use(bodyParser.urlencoded({
     extended: false
@@ -84,7 +86,7 @@ module.exports = (app, express) => {
 
   //catch errors 
   app.use((req, res, next) => {
-    var err = new Error("Not Found ");
+    var err = new Error("Not Found");
     err.status = 404;
     next(err);
   })

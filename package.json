@@ -5,15 +5,12 @@
   "author": "Idakwoji Theophilus <pietrosparks@gmail.com>",
   "private": true,
   "scripts": {
-    
     "preinstall": "npm install nodemon -g",
     "start": "nodemon ./bin/www",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
-  
-   
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -24,6 +21,7 @@
     "bulma": "^0.6.1",
     "bulma-extensions": "^0.5.2",
     "chart.js": "^2.7.1",
+    "connect-history-api-fallback": "^1.5.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
