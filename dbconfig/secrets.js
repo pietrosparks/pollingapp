@@ -7,7 +7,7 @@ if(process.env.NODE_ENV == 'production'){
     MONGO_DB = process.env.MONGO_DB_PROD;
 }
 else{
-	MONGO_DB = process.env.MONGO_DB_DEV;
+	MONGO_DB = process.env.MONGOLAB_URI;
 }
 
 module.exports = {
