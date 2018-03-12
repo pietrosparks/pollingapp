@@ -137,7 +137,7 @@
                   }
                 });
 
-                if (this.$store.state.pendingPoll !== null) {
+                if (this.$store.state.pendingPoll && this.$store.state.pendingPoll !== null) {
                  
                   setTimeout(() => {
                  

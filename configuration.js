@@ -66,9 +66,9 @@ module.exports = (app, express) => {
 
   //Initializing body parser 
   app.use(bodyParser.json());
-  // app.use(history({
-  //   verbose: true
-  // }))
+  app.use(history({
+    verbose: true
+  }))
   // app.use(cookieParser);
   app.use(bodyParser.urlencoded({
     extended: false

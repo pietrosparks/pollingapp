@@ -3,15 +3,12 @@
 var express = require('express'),
     app = express(),
     api = express.Router(),
-    
     server = require('http').Server(app),
     https = require('https');
     fs = require('fs');
     database = require('./dbconfig/database');
 
     database.connect();
-
-    
 
     require('./configuration')(app, express);
 
