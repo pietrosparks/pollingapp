@@ -3,6 +3,7 @@
 var express = require('express'),
     app = express(),
     api = express.Router(),
+    enforce = require('express-sslify');
     server = require('http').Server(app),
     https = require('https');
     fs = require('fs');
