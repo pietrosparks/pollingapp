@@ -10,8 +10,7 @@ var bodyParser = require('body-parser'),
   // passport = require('passport'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
-  history = require('vue-history-api-fallback');
-  options = require('./router');
+  history = require('connect-history-api-fallback');
  
 
 
@@ -67,15 +66,15 @@ module.exports = (app, express) => {
 
   //Initializing body parser 
   app.use(bodyParser.json());
-  app.use(history({options}))
+  app.use(history())
   // app.use(cookieParser);
   app.use(bodyParser.urlencoded({
     extended: false
   }))
   app.use(serveStatic(__dirname + "/dist"));
-  app.use(enforce.HTTPS({
-    trustProtoHeader:true
-  }))
+  // app.use(enforce.HTTPS({
+  //   trustProtoHeader:true
+  // }))
 
   // app.use(session({
   //   secret: 'thisIsNotASecret',
