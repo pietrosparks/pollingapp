@@ -6,7 +6,7 @@ var bodyParser = require('body-parser'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   serveStatic = require('serve-static');
-  // enforce = require('express-sslify');
+  enforce = require('express-sslify');
   // passport = require('passport'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
@@ -72,9 +72,9 @@ module.exports = (app, express) => {
     extended: false
   }))
   app.use(serveStatic(__dirname + "/dist"));
-  // app.use(enforce.HTTPS({
-  //   trustProtoHeader:true
-  // }))
+  app.use(enforce.HTTPS({
+    trustProtoHeader:true
+  }))
 
   // app.use(session({
   //   secret: 'thisIsNotASecret',
