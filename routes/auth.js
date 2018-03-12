@@ -6,7 +6,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
 
   api.post('/auth/signup', (req, res) => {
     console.log("i am here and this is it")
-    console.log(req, "hdhd")
+
     hash = functions.hasher(req.body.password)
 
     var userObject = {
@@ -14,7 +14,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
       profile: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        userName: req.body.userName, 
+        userName: req.body.userName,
         email: req.body.email,
         userID: functions.randomID()
       },
@@ -26,9 +26,9 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
     Users.findOne({
       'profile.email': userObject.profile.email
     }, (err, user) => {
-
+      console.log("we enter here oh")
       if (_.isNull(user)) {
-
+        console.log("no user oh")
         token = functions.encryptPayload(userObject.profile)
 
 
@@ -40,6 +40,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
             if (err) {
               console.log('There was a problem creating Poll account')
             }
+            console.log("successing")
             return res.status(200).json({
               message: "You Have Successfully Signed Up",
               type: true,
@@ -62,11 +63,11 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
     Users.findOne({
       'profile.email': req.body.email
     }, (err, user) => {
-    
-    
+
+
       if (!_.isNull(user) && functions.decrypter(req.body.password, user.password)) {
         user.token = functions.encryptPayload(user.profile)
-        
+
         res.status(200).json({
           user: user.profile,
           token: user.token,
@@ -108,7 +109,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
   })
 
   api.get('/auth/login/twitter/access-token', (req, res) => {
-    
+
     const requestToken = req.query.oauth_token;
     const verifier = req.query.oauth_verifier;
     const params = {
@@ -123,7 +124,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
         if (err) {
           console.log(err)
         } else res.json(user);
-       
+
 
       })
 
