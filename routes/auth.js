@@ -31,7 +31,8 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
         console.log("no user oh")
         token = functions.encryptPayload(userObject.profile)
 
-
+        console.log(token, "token")
+        console.log(Users,"users")
         Users.create(userObject, (err, user) => {
           if (err) {
             console.log('There was a problem creating Users');
