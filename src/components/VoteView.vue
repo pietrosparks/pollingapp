@@ -164,7 +164,7 @@
         if (event.participant.type == 'Poll') {
 
           this.shownPoll = event;
-          this.axios.get(`http://localhost:4000/api/poll/${event.participant.id}`).then(response => {
+          this.axios.get(`https://localhost:4000/api/poll/${event.participant.id}`).then(response => {
 
             this.selectedPollData = response.data
             this.hasVoted(this.selectedPollData)
@@ -199,7 +199,7 @@
         } else if (event.participant.type == 1) {
           this.shownUser = event;
           //Follow User and view
-          this.axios.get(`http://localhost:4000/api/users/${event.participant.id}`).then(response => {
+          this.axios.get(`https://localhost:4000/api/users/${event.participant.id}`).then(response => {
             console.log(response)
           })
         }
@@ -221,7 +221,7 @@
             count: option,
             voter: JSON.parse(localStorage.userID)
           }
-        this.axios.put(`http://localhost:4000/api/poll/${this.selectedPollData.pollID}`, voteObject).then(response => {
+        this.axios.put(`https://localhost:4000/api/poll/${this.selectedPollData.pollID}`, voteObject).then(response => {
 
           this.$swal({
             title: 'Success',
@@ -249,7 +249,7 @@
             count: option,
             voter: 'Guest'
           }
-        this.axios.put(`http://localhost:4000/api/poll/guest/${this.selectedPollData.pollID}`, voteObject).then(
+        this.axios.put(`https://localhost:4000/api/poll/guest/${this.selectedPollData.pollID}`, voteObject).then(
           response => {
 
             this.$swal({
@@ -324,7 +324,7 @@
 
     created() {
 
-      this.axios.get(`http://localhost:4000/api/poll/${this.$route.params.pollId}`).then(response => {
+      this.axios.get(`https://localhost:4000/api/poll/${this.$route.params.pollId}`).then(response => {
 
         this.$store.commit('keepPendingPoll', response.data.poll);
         this.selectedPollData = response.data.poll

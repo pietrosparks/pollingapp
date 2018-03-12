@@ -10,6 +10,7 @@ var bodyParser = require('body-parser'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
   history = require('connect-history-api-fallback');
+ 
 
 
 
@@ -17,7 +18,7 @@ var bodyParser = require('body-parser'),
 
 const incomingOriginWhitelist = [
   //for machines that use 'origin'
-  'http://localhost:4000',
+  'https://localhost:4000',
   //for machines that use 'host'
   'localhost:4000',
   'https://api.twitter.com',

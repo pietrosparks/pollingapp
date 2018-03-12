@@ -122,7 +122,7 @@
     methods: {
 
       signUp() {
-        this.axios.post('http://localhost:4000/api/auth/signup', {
+        this.axios.post('https://localhost:4000/api/auth/signup', {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
@@ -157,7 +157,7 @@
       },
       twitterLogin() {
 
-        this.axios.get('http://localhost:4000/api/auth/login/twitter/request-token').then(response => {
+        this.axios.get('https://localhost:4000/api/auth/login/twitter/request-token').then(response => {
 
           axios.get(response.data).then(user => {})
         })
