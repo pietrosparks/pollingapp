@@ -22,7 +22,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
 
     }
 
-    return res.json(userObject)
+    
     console.log("users")
 
     Users.findOne({
