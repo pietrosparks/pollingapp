@@ -23,42 +23,42 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
     }
 
     return res.json(userObject)
-    // console.log("users")
+    console.log("users")
 
-    // Users.findOne({
-    //   'profile.email': userObject.profile.email
-    // }, (err, user) => {
-    //   console.log("we enter here oh")
-    //   if (_.isNull(user)) {
-    //     console.log("no user oh")
-    //     token = functions.encryptPayload(userObject.profile)
+    Users.findOne({
+      'profile.email': userObject.profile.email
+    }, (err, user) => {
+      console.log("we enter here oh")
+      if (_.isNull(user)) {
+        console.log("no user oh")
+        token = functions.encryptPayload(userObject.profile)
 
-    //     console.log(token, "token")
-    //     console.log(Users,"users")
-    //     Users.create(userObject, (err, user) => {
-    //       if (err) {
-    //         console.log('There was a problem creating Users');
-    //       }
-    //       Poller.create(userObject.profile, (err, response) => {
-    //         if (err) {
-    //           console.log('There was a problem creating Poll account')
-    //         }
-    //         console.log("successing")
-    //         return res.status(200).json({
-    //           message: "You Have Successfully Signed Up",
-    //           type: true,
-    //           token: token,
-    //           customStatus: 1
-    //         })
-    //       })
-    //     })
-    //   } else return res.json({
-    //     message: "User already exists",
-    //     type: false,
-    //     customStatus: 0
-    //   })
+        console.log(token, "token")
+        console.log(Users,"users")
+        Users.create(userObject, (err, user) => {
+          if (err) {
+            console.log('There was a problem creating Users');
+          }
+          Poller.create(userObject.profile, (err, response) => {
+            if (err) {
+              console.log('There was a problem creating Poll account')
+            }
+            console.log("successing")
+            return res.status(200).json({
+              message: "You Have Successfully Signed Up",
+              type: true,
+              token: token,
+              customStatus: 1
+            })
+          })
+        })
+      } else return res.json({
+        message: "User already exists",
+        type: false,
+        customStatus: 0
+      })
 
-    // })
+    })
   })
 
   api.post('/auth/login', (req, res) => {

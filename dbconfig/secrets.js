@@ -4,10 +4,11 @@ require('dotenv').load()
 
 let MONGO_DB;
 if(process.env.NODE_ENV == 'production'){
-    MONGO_DB = process.env.MONGO_DB_PROD;
+    MONGO_DB = process.env.MONGOLAB_URI;
+    
 }
 else{
-	MONGO_DB = process.env.MONGOLAB_URI;
+	MONGO_DB = process.env.MONGO_DB_DEV;
 }
 
 module.exports = {
