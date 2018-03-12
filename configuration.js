@@ -6,11 +6,12 @@ var bodyParser = require('body-parser'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   serveStatic = require('serve-static');
-  enforce = require('express-sslify');
+  // enforce = require('express-sslify');
   // passport = require('passport'),
   // session = require('express-session'),
   secrets = require('./dbconfig/secrets');
-  history = require('connect-history-api-fallback');
+  history = require('vue-history-api-fallback');
+  options = require('./router');
  
 
 
@@ -66,7 +67,7 @@ module.exports = (app, express) => {
 
   //Initializing body parser 
   app.use(bodyParser.json());
-  app.use(history())
+  app.use(history({options}))
   // app.use(cookieParser);
   app.use(bodyParser.urlencoded({
     extended: false
