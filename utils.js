@@ -35,7 +35,8 @@ function checkFileType(file, cb) {
 }
 
 const encryptPayload = (payload) => {
-
+  console.log(secrets.JWT_SECRET,'secret')
+  console.log(payload,"payload")
   return JWT.sign({
     data: payload,
     exp: Math.floor(Date.now() / 1000) + 360,

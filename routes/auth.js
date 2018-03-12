@@ -23,15 +23,15 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
     }
 
     
-    console.log("users")
+    
 
     Users.findOne({
       'profile.email': userObject.profile.email
     }, (err, user) => {
-      console.log("we enter here oh")
+      
       if (_.isNull(user)) {
-        console.log("no user oh")
-        token = functions.encryptPayload(userObject.profile)
+        
+       var token = functions.encryptPayload(userObject.profile)
 
         console.log(token, "token")
         console.log(Users,"users")
