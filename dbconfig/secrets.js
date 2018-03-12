@@ -4,10 +4,10 @@ require('dotenv').load()
 
 let MONGO_DB;
 if(process.env.NODE_ENV == 'production'){
-    MONGO_DB = process.env.MONGO_DB_DEV;
+    MONGO_DB = process.env.MONGO_DB_PROD;
 }
 else{
-	MONGO_DB = 'mongodb://localhost/polling-app';
+	MONGO_DB = process.env.MONGO_DB_DEV;
 }
 
 module.exports = {
