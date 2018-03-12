@@ -5,6 +5,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
   // })
 
   api.post('/auth/signup', (req, res) => {
+    console.log(req.body,"hey")
     console.log("i am here and this is it")
 
     hash = functions.hasher(req.body.password)
@@ -21,7 +22,7 @@ module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) =
       password: hash
 
     }
-
+    console.log(Users,"users")
 
     Users.findOne({
       'profile.email': userObject.profile.email
