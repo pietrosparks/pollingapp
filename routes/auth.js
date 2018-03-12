@@ -1,5 +1,9 @@
 module.exports = (api, Users, functions, _, Poller, Twitter, bluebird, secret) => {
 
+  app.get('/.well-known/acme-challenge/:content', function(req, res) {
+    res.send('G0m0aOK6VeoApGWvPMd0zqyTS3YH_R79bstWeBOAdBk.vgQWpBvt7tntFOSHsFS4bSrBlVwb22QpdSBlTDjlAmg')
+  })
+
   api.post('/auth/signup', (req, res) => {
 
     hash = functions.hasher(req.body.password)

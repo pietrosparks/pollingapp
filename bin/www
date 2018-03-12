@@ -15,7 +15,7 @@ var debug = require('debug')('techverse:server');
  * Get port from environment and store in Express.
  */
 
-var port = process.env.PORT || normalizePort(4000)  ;
+var port = process.env.PORT || 443  ;
 app.set('port', port);
 
 /**
@@ -23,7 +23,7 @@ app.set('port', port);
  */
 
 // var server = http.createServer(app);
-var server = require('../app').server;
+// var server = require('../app').server;
 // console.log(server);
 
 /**
@@ -39,9 +39,36 @@ const certFile = path.join(__dirname,'../certs/cert.pem')
 // }, app).listen(port)
 
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
+
+
+var LEX = require('letsencrypt-express').testing();
+
+// Change these two lines!
+var DOMAIN = 'theos-polling-app.herokuapp.com';
+var EMAIL = 'pietrosparks@gmail.com';
+
+var lex = LEX.create({
+  configDir: require('os').homedir() + '/letsencrypt/etc'
+, approveRegistration: function (hostname, approve) { // leave `null` to disable automatic registration
+    if (hostname === DOMAIN) { // Or check a database or list of allowed domains
+      approve(null, {
+        domains: [DOMAIN]
+      , email: EMAIL
+      , agreeTos: true
+      });
+    }
+  }
+});
+
+lex.onRequest = app;
+
+lex.listen([80], [443, 5001], function () {
+  var protocol = ('requestCert' in this) ? 'https': 'http';
+  console.log("Listening at " + protocol + '://localhost:' + this.address().port);
+});
 
 /**
  * Normalize a port into a number, string, or false.

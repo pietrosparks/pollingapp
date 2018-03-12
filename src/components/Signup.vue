@@ -122,7 +122,7 @@
     methods: {
 
       signUp() {
-        this.axios.post('http://localhost:4000/api/auth/signup', {
+        this.axios.post('https://localhost:4000/api/auth/signup', {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
