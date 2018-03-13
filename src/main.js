@@ -34,6 +34,11 @@ Vue.use(VueAxios, axios);
 Vue.use(VueLocalStorage)
 Vue.use(VueSweetalert2)
 
+if(process.env.NODE_ENV == 'production'){
+  axios.defaults.baseURL = process.env.BASEURL_PROD;
+}
+else axios.defaults.baseURL = process.env.BASEURL_DEV;
+
 
 
 Vue.use(VueTimeago, {
