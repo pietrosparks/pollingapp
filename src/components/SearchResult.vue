@@ -74,7 +74,7 @@
         this.pollObject.maxCount = this.poll.pollMaxCount
 
 
-        this.axios.post('http://localhost:4000/api/poll/new', this.pollObject).then(response => {
+        this.axios.post('/api/poll/new', this.pollObject).then(response => {
 
           this.isLoading = false
           this.$swal({
@@ -94,12 +94,12 @@
       },
 
       getUserData() {
-        this.axios.get(`http://localhost:4000/api/user/${this.userID}`).then(response => {
+        this.axios.get(`/api/user/${this.userID}`).then(response => {
           this.userCred = response.data
         })
       },
       fetchEventData() {
-        this.axios.get(`http://localhost:4000/api/events/user/${this.userID}`).then(response => {
+        this.axios.get(`/api/events/user/${this.userID}`).then(response => {
           this.userEvents = response.data
         })
       },

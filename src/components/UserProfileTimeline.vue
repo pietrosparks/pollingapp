@@ -132,7 +132,7 @@
             count: option,
             voter: JSON.parse(localStorage.userID)
           }
-        this.axios.put(`http://localhost:4000/api/poll/${this.shownPoll.participant.id}`, voteObject).then(response => {
+        this.axios.put(`/api/poll/${this.shownPoll.participant.id}`, voteObject).then(response => {
 
           this.$swal({
             title: 'Success',
@@ -161,7 +161,7 @@
         if (event.participant.type == 'Poll') {
 
           this.shownPoll = event;
-          this.axios.get(`http://localhost:4000/api/poll/${event.participant.id}`).then(response => {
+          this.axios.get(`/api/poll/${event.participant.id}`).then(response => {
 
             this.selectedPollData = response.data
             this.hasVoted(this.selectedPollData)
@@ -196,7 +196,7 @@
         } else if (event.participant.type == 1) {
           this.shownUser = event;
           //Follow User and view
-          this.axios.get(`http://localhost:4000/api/users/${event.participant.id}`).then(response => {
+          this.axios.get(`/api/users/${event.participant.id}`).then(response => {
             console.log(response)
           })
         }
@@ -235,7 +235,7 @@
        var finished = newString.join("");
        
         var text =
-          `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+http://localhost:8089/poll/shared/${poll.pollID}`
+          `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
        console.log(text)
       }
     },

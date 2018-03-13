@@ -150,7 +150,7 @@
         this.pollObject.maxCount = this.poll.pollMaxCount
 
 
-        this.axios.post('http://localhost:4000/api/poll/new', this.pollObject).then(response => {
+        this.axios.post('/api/poll/new', this.pollObject).then(response => {
           console.log(response, "heyss")
           this.isLoading = false
           this.$swal({

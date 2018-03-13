@@ -66,7 +66,7 @@ const actions = {
 
   login: (context, user) => {
 
-    axios.post('http://localhost:4000/api/auth/login', user).then(response => {
+    axios.post('/api/auth/login', user).then(response => {
 
       const stringifiedUserID = JSON.stringify(response.data.user.userID)
 
@@ -84,7 +84,7 @@ const actions = {
 
   getUserState: (context, payload) => {
   
-    axios.get(`http://localhost:4000/api/user/${payload}`).then(response => {
+    axios.get(`/api/user/${payload}`).then(response => {
       context.commit('updateUserState', response.data)
     }).catch(e => {
       throw (e)
@@ -93,14 +93,14 @@ const actions = {
   },
 
   getAllUsers: (context, payload) =>{
-      axios.get('http://localhost:4000/api/users/all').then(response=>{
+      axios.get('/api/users/all').then(response=>{
           context.commit('setupAllUsers', response.data)
       })
   },
 
 
   follow: (context, payload) => {
-    axios.post('http://localhost:4000/api/user/follow', payload).then(response => {
+    axios.post('/api/user/follow', payload).then(response => {
 
       context.commit('updateUserState', response.data.follower)
       context.commit('setupSearchResult', response.data.followed)
@@ -109,7 +109,7 @@ const actions = {
       })
   },
   unfollow: (context, payload) => {
-    axios.post('http://localhost:4000/api/user/unfollow', payload).then(response => {
+    axios.post('/api/user/unfollow', payload).then(response => {
 
       context.commit('updateUserState', response.data.unfollower)
       context.commit('setupSearchResult', response.data.unfollowed)
@@ -120,7 +120,7 @@ const actions = {
   }, 
 
   selectUser: (context, payload) =>{
-    axios.get(`http://localhost:4000/api/user/${payload}`).then(response=>{
+    axios.get(`/api/user/${payload}`).then(response=>{
       console.log(response.data)
       context.commit('setupSearchResult', response.data)
     })

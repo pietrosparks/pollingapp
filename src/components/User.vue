@@ -82,7 +82,7 @@
         })
       },
       fetchEventData() {
-        this.axios.get(`http://localhost:4000/api/events/user/${this.userID}`).then(response => {
+        this.axios.get(`/api/events/user/${this.userID}`).then(response => {
           console.log(response)
           this.userEvents = response.data
         })
