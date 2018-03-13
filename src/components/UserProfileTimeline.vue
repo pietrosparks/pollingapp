@@ -196,7 +196,7 @@
             this.customChartDataLabel = labels
             this.justChartData = this.chartDataFunc();
             //For Link
-            var split = poll.name.split(' ');
+            var split = this.shownPoll.name.split(' ');
             var newString = [];
             split.forEach(resp => {
               newString.push(resp + "%20")
@@ -205,7 +205,7 @@
 
             var text =
               `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
-
+console.log(text)
             this.shareUrl = text
 
           })
