@@ -67,7 +67,10 @@
             <h3 class="is-size-4">{{selectedPollData.description}}</h3>
           </div>
           <div class="share is-horizontal-center" @click="shareTwitter(selectedPollData)">
-            <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
+            <a v-bind:href="shareUrl" target="_blank">
+                <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
+            </a>
+            
           </div>
           <br>
           <div v-if="userHasVoted === false">
@@ -111,7 +114,8 @@
         userHasVoted: false,
         justChartData: '',
         customChartDataLabel: '',
-        customChartData: ''
+        customChartData: '',
+        shareUrl:''
 
       }
     },
@@ -238,7 +242,9 @@
        
         var text =
           `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
-       console.log(text)
+        
+          this.shareUrl = text
+
       }
     },
 

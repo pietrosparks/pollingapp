@@ -5,9 +5,8 @@
         <a class="navbar-item">
           <img src="https://www.downgraf.com/wp-content/uploads/2017/04/Downgraf-New-Logo-Design-Black.png" alt="Logo">
         </a>
-        <span class="navbar-burger burger" data-target="navbarMenuHeroC">
-          <span></span>
-          <span></span>
+        <span class="navbar-burger burger " :class="{'is-active': isDropOpen }" @click="dropOpen()">
+            
           <span></span>
         </span>
       </div>
@@ -30,9 +29,9 @@
           <div class="searchBar">
 
             <div class="field">
-              <label class="label">Search</label>
+              
               <div class="control has-icons-left has-icons-right">
-                <input class="input is-success" type="text" placeholder="Search" v-model="search">
+                <input class="input is-success is-small" type="text" placeholder="Search" v-model="search">
                 <span class="icon is-small is-left">
                   <i class="fas fa-user"></i>
                 </span>
@@ -48,7 +47,7 @@
           </div>
           <span class="navbar-item has-text-centered">
 
-            <h3 class="is-size-3">
+            <h3 class="is-size-5">
               Welcome
               <span style="color:#6FCF97">{{username}}</span>
             </h3>
@@ -75,7 +74,8 @@
       return {
 
 
-        search: ''
+        search: '',
+        isDropOpen: false
       }
     },
     methods: {
@@ -83,6 +83,10 @@
       logout() {
         this.$store.commit('authLogout')
         this.$router.push('/')
+      },
+
+      dropOpen(){
+        this.isDropOpen = !this.isDropOpen
       },
       searchFunction() {
 
@@ -160,22 +164,25 @@
 </script>
 
 <style scoped>
-  .logout-btn {
+  /* .logout-btn {
     margin-top: 15px;
-  }
-
+  } */
+.navbar{
+  padding: 5px;
+}
   .searchBar {
     padding: 5px;
     max-width: 40%;
-    margin-right: 5px;
+    margin-right: 15px;
+    margin-top: 10px;
     display: inline !important;
   }
 
   .searchIcon {
     display: inline !important;
     padding: 10px;
-    margin-top: 15px;
-    margin-right: 10px
+    margin-top: 10px;
+    margin-right: 55px
   }
 
   .search {

@@ -32,7 +32,7 @@
 
       <div class="modal-background"></div>
       <div class="modal-content">
-        <div class="box">
+        <div class="box" id="createPoll">
           <article class="media">
             <div class="media-left">
               <figure class="image is-64x64">
@@ -41,8 +41,8 @@
             </div>
             <div class="media-content">
               <div class="content">
-                <p>
-                  <strong class="username">New Poll</strong>
+                
+                 
                   <br>
                   <div class="field">
 

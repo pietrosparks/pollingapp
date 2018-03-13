@@ -32,7 +32,7 @@
           </article>
         </div>
       </div>
-      <button class="modal-close is-large" @click="clearSearch()" aria-label="close"></button>
+      <button class="modal-close is-medium" @click="clearSearch()" aria-label="close"></button>
     </div>
   </div>
 

@@ -39,7 +39,7 @@
             <br>
             <div class="field ">
               <div class="control has-text-centered">
-                <a class="button is-mygreen is-large login-btn" @click="properLogin">Login</a>
+                <a class="button is-mygreen is-medium login-btn" @click="properLogin">Login</a>
               </div>
             </div>
             <br>

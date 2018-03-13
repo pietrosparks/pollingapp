@@ -13,7 +13,7 @@
           
             <div class="mg-top-1 mg-bottom-1 pd-top-1">
               <div class="has-text-centered ">
-                <h1 class=" is-medium">Create and Share Polls </h1>
+                <h1 class=" is-large">Create and Share Polls </h1>
                 <h2>Get That conversation going </h2>
               </div>
 
@@ -58,7 +58,7 @@
             <br>
             <div class="field ">
               <div class="control has-text-centered">
-                <a class="button is-mygreen is-large login-btn" @click="signUp">Sign Up</a>
+                <a class="button is-mygreen is-medium login-btn" @click="signUp">Sign Up</a>
               </div>
             </div>
             <br>
