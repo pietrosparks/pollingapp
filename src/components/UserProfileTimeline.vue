@@ -205,7 +205,7 @@
             var finished = newString.join("");
 
             var text =
-              `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
+              `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${this.shownPoll.participant.id}`
 console.log(text,"text")
             this.shareUrl = text
 
