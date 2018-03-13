@@ -70,7 +70,8 @@
             <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
           </div>
           <br>
-          <div v-if="!userHasVoted">
+          <div v-if="userHasVoted === false">
+            
             <div class="content-wrapper">
               <div class="answer-button  " v-for="option in selectedPollData.options">
                 <a class="button is-rounded is-large is-primary answer-button" @click="vote(option)">{{option.name}}</a>
@@ -152,18 +153,18 @@
       openEventModal() {
 
         this.isEventModalOpen = !this.isEventModalOpen
-        this.userHasVoted = false
+       
 
       },
       openEvent(event) {
-
+      
         this.openEventModal();
         if (event.participant.type == 'Poll') {
 
           this.shownPoll = event;
           this.axios.get(`/api/poll/${event.participant.id}`).then(response => {
 
-            this.selectedPollData = response.data
+            this.selectedPollData = response.data.poll
             this.hasVoted(this.selectedPollData)
 
 
@@ -217,8 +218,9 @@
         return true;
       },
       hasVoted(obj) {
-
+       
         const UserID = JSON.parse(localStorage.userID)
+        console.log(obj,"obj poll")
         if (obj.votedUsers.includes(UserID)) {
           this.userHasVoted = true
         } else this.userHasVoted = false

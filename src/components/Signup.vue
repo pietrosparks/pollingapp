@@ -159,7 +159,7 @@
 
         this.axios.get('/api/auth/login/twitter/request-token').then(response => {
 
-          axios.get(response.data).then(user => {})
+          this.axios.get(response.data).then(user => {})
         })
       }
 

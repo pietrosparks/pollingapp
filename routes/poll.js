@@ -3,6 +3,7 @@ module.exports = (api, Users, functions, _, Polls, Events, requestIp) => {
   api.post('/poll/new', (req, res) => {
 
     let pollDetails = req.body
+    console.log(pollDetails)
     pollDetails.pollID = functions.randomID(10);
 
     var newArray = pollDetails.options.map(option => {
@@ -24,7 +25,7 @@ module.exports = (api, Users, functions, _, Polls, Events, requestIp) => {
       }, {
         new: true
       }, (err, user) => {
-
+        console.log(user,"jdjd")
         let eventParticipant = {
           name: pollDetails.name,
           id: pollDetails.pollID,

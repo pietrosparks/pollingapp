@@ -177,7 +177,7 @@
             let colors = []
             let dataArr = []
 
-            this.selectedPollData.options.forEach(label => {
+            this.$store.state.pendingPoll.options.forEach(label => {
 
               labels.push(label.name)
               dataArr.push(label.result)
@@ -278,7 +278,7 @@
         let colors = []
         let dataArr = []
 
-        this.selectedPollData.options.forEach(label => {
+        this.$store.state.pendingPoll.options.forEach(label => {
 
           labels.push(label.name)
           dataArr.push(label.result)
