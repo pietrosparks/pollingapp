@@ -196,6 +196,8 @@
             this.customChartDataLabel = labels
             this.justChartData = this.chartDataFunc();
             //For Link
+            console.log(event,"event");
+            console.log(this.shownPoll,"shown")
             var split = this.shownPoll.name.split(' ');
             var newString = [];
             split.forEach(resp => {
