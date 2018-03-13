@@ -66,15 +66,15 @@
             <h3 class="medium is-size-3">{{selectedPollData.name}}</h3>
             <h3 class="is-size-4">{{selectedPollData.description}}</h3>
           </div>
-          <div class="share is-horizontal-center" @click="shareTwitter(selectedPollData)">
+          <div class="share is-horizontal-center">
             <a v-bind:href="shareUrl" target="_blank">
-                <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
+              <img src="../assets/twirra.png" alt="" class="twitter-share" role="button">
             </a>
-            
+
           </div>
           <br>
           <div v-if="userHasVoted === false">
-            
+
             <div class="content-wrapper">
               <div class="answer-button  " v-for="option in selectedPollData.options">
                 <a class="button is-rounded is-large is-primary answer-button" @click="vote(option)">{{option.name}}</a>
@@ -115,7 +115,7 @@
         justChartData: '',
         customChartDataLabel: '',
         customChartData: '',
-        shareUrl:''
+        shareUrl: ''
 
       }
     },
@@ -157,11 +157,11 @@
       openEventModal() {
 
         this.isEventModalOpen = !this.isEventModalOpen
-       
+
 
       },
       openEvent(event) {
-      
+
         this.openEventModal();
         if (event.participant.type == 'Poll') {
 
@@ -195,6 +195,18 @@
             this.customChartData = dataFigures
             this.customChartDataLabel = labels
             this.justChartData = this.chartDataFunc();
+            //For Link
+            var split = poll.name.split(' ');
+            var newString = [];
+            split.forEach(resp => {
+              newString.push(resp + "%20")
+            })
+            var finished = newString.join("");
+
+            var text =
+              `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
+
+            this.shareUrl = text
 
           })
           // console.log(this.shownPoll)
@@ -222,30 +234,30 @@
         return true;
       },
       hasVoted(obj) {
-       
+
         const UserID = JSON.parse(localStorage.userID)
-        console.log(obj,"obj poll")
+        console.log(obj, "obj poll")
         if (obj.votedUsers.includes(UserID)) {
           this.userHasVoted = true
         } else this.userHasVoted = false
         console.log(this.userHasVoted)
 
       },
-      shareTwitter(poll) {
-        
-       var split = poll.name.split(' ');
-       var newString =[];
-       split.forEach(resp=>{
-        newString.push(resp+"%20")
-       })
-       var finished = newString.join("");
-       
-        var text =
-          `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
-        
-          this.shareUrl = text
+      // shareTwitter(poll) {
 
-      }
+      //   var split = poll.name.split(' ');
+      //   var newString = [];
+      //   split.forEach(resp => {
+      //     newString.push(resp + "%20")
+      //   })
+      //   var finished = newString.join("");
+
+      //   var text =
+      //     `http://twitter.com/intent/tweet?text=${this.$store.state.userCred.userName}+just+shared+the+poll+'+${finished}+'+Click+the+link+below+to+cast+a+vote+https://theos-polling-app.herokuapp.com/poll/shared/${poll.pollID}`
+
+      //   this.shareUrl = text
+
+      // }
     },
 
 
