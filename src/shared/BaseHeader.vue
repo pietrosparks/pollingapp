@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-fixed-top">
+  <nav class="navbar ">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item">
