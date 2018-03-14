@@ -84,6 +84,7 @@
       logout() {
         this.$store.commit('authLogout')
         this.$router.push('/')
+        this.dropOpen()
       },
 
       dropOpen(){
@@ -173,6 +174,7 @@
   } */
 .navbar{
   padding: 5px;
+  
 }
   .searchBar {
     padding: 5px;
