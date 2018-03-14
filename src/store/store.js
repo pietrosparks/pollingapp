@@ -8,6 +8,7 @@ Vue.use(Vuex)
 const state = {
   userCred: {},
   isAuth: false,
+  searchIsOngoing:false
 }
 
 const getters = {

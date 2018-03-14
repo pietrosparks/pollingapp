@@ -1,17 +1,20 @@
 <template>
-  <header class="navbar">
+  <nav class="navbar is-fixed-top">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item">
           <img src="https://www.downgraf.com/wp-content/uploads/2017/04/Downgraf-New-Logo-Design-Black.png" alt="Logo">
         </a>
-        <span class="navbar-burger burger " :class="{'is-active': isDropOpen }" @click="dropOpen()">
+        <span class="navbar-burger burger"  @click="dropOpen()">
             
           <span></span>
+          <span></span>
+          <span></span>
+         
         </span>
       </div>
-      <div id="navbarMenuHeroC" class="navbar-menu">
-        <div class="navbar-end " v-if="!authenticated">
+      <div id="navbarMenuHeroC" class="navbar-menu" :class="{'is-active': isDropOpen }">
+        <div class="navbar-end is-flex-touch " v-if="!authenticated">
 
           <span class="navbar-item has-text-centered">
 
@@ -60,20 +63,18 @@
         </div>
       </div>
     </div>
-  </header>
+  </nav>
+
+  
 </template>
 
 <script>
-  import {
-    EventBus
-  } from '../main';
+  
 
   export default {
     name: "baseheader",
     data() {
       return {
-
-
         search: '',
         isDropOpen: false
       }
@@ -108,6 +109,8 @@
  
           this.$store.commit('setupSearchResult', results)
           this.$store.commit('setupSearch')
+          this.dropOpen()
+
         })
        
         // let searchItem = {
@@ -189,4 +192,29 @@
     margin-right: 20px
   }
 
+  @media (min-width: 320px) and (max-width: 1024px) {
+  
+  .searchBar .field {
+    max-width: 80% !important;
+    margin: 10px auto !important;
+  }
+
+  .searchIcon{
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: block !important
+    
+  }
+  #navbarMenuHeroC {
+    width: 100% !important
+
+  }
+
+  .logout-btn{
+    padding: 20px;
+  }
+
+
+  
+}
 </style>
