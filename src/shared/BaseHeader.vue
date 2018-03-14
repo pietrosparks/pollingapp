@@ -110,6 +110,7 @@
           this.$store.commit('setupSearchResult', results)
           this.$store.commit('setupSearch')
           this.dropOpen()
+          this.search = ''
 
         })
        
