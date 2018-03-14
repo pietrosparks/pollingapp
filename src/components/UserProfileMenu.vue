@@ -122,6 +122,11 @@
     },
 
     methods: {
+      pollReset() {
+        return {
+          pollOptionsArray: []
+        }
+      },
       pollModal() {
         this.isModalOpen = !this.isModalOpen
 

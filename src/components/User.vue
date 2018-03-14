@@ -69,11 +69,7 @@
       SearchResults
     },
     methods: {
-      pollReset() {
-        return {
-          pollOptionsArray: []
-        }
-      },
+    
 
       getUserData() {
 
